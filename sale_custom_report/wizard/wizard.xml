@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="wizard_form" model="ir.ui.view">
+            <field name="name">Sale report wizard</field>
+            <field name="model">report.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field invisible="1" name="state"/>
+                    <div states="choose">
+                        <group >
+                            <field name="date_from" required="1"/>
+                            <field name="date_to" required="1"/>
+                        </group>
+                    </div>
+                    <div states="get">
+                        <group>
+                            <field name="name" colspan="4" invisible="1"/>
+                            <field name="report" filename="name" colspan="4"/>
+                        </group>
+                    </div>
+
+                    <footer states="choose">
+                        <button name="generate_report" string="Generate Report" type="object" class="oe_highlight" />
+                        <button special="cancel" string="Cancel" class="oe_highlight" />
+                    </footer>
+                    <footer states="get">
+                        <button special="cancel" string="Cancel" class="oe_highlight" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_sale_xls_report" model="ir.actions.act_window">
+            <field name="name">Generate XLS</field>
+            <field name="res_model">report.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+
+        </record>
+
+        <menuitem id="sale_report_xls_child" name="Sale Report" parent="sales_team.menu_sale_report" action="action_sale_xls_report"/>
+    </data>
+</odoo>
